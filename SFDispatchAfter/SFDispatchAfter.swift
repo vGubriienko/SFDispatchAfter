@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SFDispatchObject: NSObject {
+public class SFDispatchObject: NSObject {
     
     private var executionBlock: (() -> Void)?
     private var timer: NSTimer?
@@ -19,7 +19,7 @@ class SFDispatchObject: NSObject {
         executionBlock = nil
     }
     
-    class func dispatchAfter(time: NSTimeInterval, executionBlock: () -> Void) -> SFDispatchObject {
+    public class func dispatchAfter(time: NSTimeInterval, executionBlock: () -> Void) -> SFDispatchObject {
         if NSThread.isMainThread() {
             return SFDispatchQueue.addDispatchObject(time, executionBlock: executionBlock)
         } else {
@@ -35,7 +35,7 @@ class SFDispatchObject: NSObject {
         }
     }
     
-    func cancel() {
+    public func cancel() {
         if NSThread.isMainThread() {
             SFDispatchQueue.cancelDispatchObject(self)
         } else {
