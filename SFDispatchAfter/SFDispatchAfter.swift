@@ -35,6 +35,16 @@ public class SFDispatchObject: NSObject {
         }
     }
     
+    public func fire() {
+        if NSThread.isMainThread() {
+            self.timer?.fire()
+        } else {
+            dispatch_sync(dispatch_get_main_queue()) {
+                self.timer?.fire()
+            }
+        }
+    }
+    
     public func cancel() {
         if NSThread.isMainThread() {
             SFDispatchQueue.cancelDispatchObject(self)
@@ -50,9 +60,7 @@ public class SFDispatchObject: NSObject {
 @objc (SFDispatchQueue)
 private class SFDispatchQueue: NSObject {
     
-    struct Static {
-        private static var dispatches = [SFDispatchObject]()
-    }
+    static var dispatches = [SFDispatchObject]()
     
     class func addDispatchObject(afterTime: NSTimeInterval, executionBlock: () -> Void) -> SFDispatchObject {
         let dispatchObject = SFDispatchObject()
@@ -65,7 +73,7 @@ private class SFDispatchQueue: NSObject {
         dispatchObject.executionBlock = executionBlock
         dispatchObject.timer = timer
         
-        Static.dispatches.append(dispatchObject)
+        dispatches.append(dispatchObject)
 
         return dispatchObject
     }
@@ -73,14 +81,14 @@ private class SFDispatchQueue: NSObject {
     class func cancelDispatchObject(dispatchObject: SFDispatchObject) {
         dispatchObject.invalidate()
         
-        if let index = find(Static.dispatches, dispatchObject) {
-            Static.dispatches.removeAtIndex(index)
+        if let index = find(dispatches, dispatchObject) {
+            dispatches.removeAtIndex(index)
         }
     }
     
     // MARK: - Timer execution
     @objc private class func execute(timer: NSTimer) {
-        let dispatchObject = timer.userInfo as SFDispatchObject
+        let dispatchObject = timer.userInfo as! SFDispatchObject
         dispatchObject.executionBlock?()
         cancelDispatchObject(dispatchObject)
     }

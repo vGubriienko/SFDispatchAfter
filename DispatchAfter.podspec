@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DispatchAfter"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "Simple and modern way to make delayed calls with ability to cancel them"
 
   s.description  = <<-DESC
