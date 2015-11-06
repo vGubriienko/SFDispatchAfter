@@ -16,11 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        var obj1 = SFDispatchObject.dispatchAfter(3.0) {
+        let obj1 = SFDispatchObject.dispatchAfter(3.0) {
             NSLog("Should never be called")
         }
         
-        let obj2 = SFDispatchObject.dispatchAfter(2.0) {
+        SFDispatchObject.dispatchAfter(2.0) {
             obj1.cancel()
             NSLog("Second dispatch. Cancelling first dispatch here.")
         }

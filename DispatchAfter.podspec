@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DispatchAfter"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "Simple and modern way to make delayed calls with ability to cancel them"
 
   s.description  = <<-DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/vGubriienko/SFDispatchAfter.git", :tag => "0.1.1" }
+  s.source       = { :git => "https://github.com/vGubriienko/SFDispatchAfter.git", :tag => "0.1.2" }
 
   s.source_files = "SFDispatchAfter/SFDispatchAfter.swift"
 

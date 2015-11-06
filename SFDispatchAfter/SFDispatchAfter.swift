@@ -25,7 +25,7 @@ public class SFDispatchObject: NSObject {
         } else {
             var dispatchObject: SFDispatchObject!
             
-            println("Warning: dispatch will be done on the main thread")
+            print("Warning: dispatch will be done on the main thread")
             
             dispatch_sync(dispatch_get_main_queue(), { () -> Void in
                 dispatchObject = SFDispatchQueue.addDispatchObject(time, executionBlock: executionBlock)
@@ -81,7 +81,7 @@ private class SFDispatchQueue: NSObject {
     class func cancelDispatchObject(dispatchObject: SFDispatchObject) {
         dispatchObject.invalidate()
         
-        if let index = find(dispatches, dispatchObject) {
+        if let index = dispatches.indexOf(dispatchObject) {
             dispatches.removeAtIndex(index)
         }
     }
